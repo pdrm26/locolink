@@ -9,6 +9,7 @@ import { ChatFooter } from "@/components/ChatFooter";
 import { StatusIndicator } from "@/components/StatusIndicator";
 import { ConnectionStatus } from "@/types/connectionStatus";
 import { ChatBody } from "@/components/ChatBody";
+import { ChatHeader } from "@/components/ChatHeader";
 
 export default function Home() {
   const [peer, setPeer] = useState<Peer>();
@@ -207,19 +208,10 @@ export default function Home() {
           {/* Chat Panel */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-lg h-[600px] flex flex-col">
-              {/* Chat Header */}
-              <div className="p-4 border-b border-gray-200">
-                <h2 className="text-xl font-semibold text-gray-800">
-                  {isConnected ? `Chat with ${friendPeerID}` : "Chat"}
-                </h2>
-                <p className="text-sm text-gray-500">
-                  {isConnected
-                    ? "Connected and ready to chat!"
-                    : "Connect to start messaging"}
-                </p>
-              </div>
-
-              {/* Messages Area */}
+              <ChatHeader
+                isConnected={isConnected}
+                friendPeerID={friendPeerID}
+              />
               <ChatBody messages={messages} messagesEndRef={messagesEndRef} />
               <ChatFooter
                 connection={connection}
