@@ -2,10 +2,12 @@
 
 import Peer, { DataConnection } from "peerjs";
 import { useRef, useState } from "react";
-import { Send, Users, Wifi, WifiOff, Copy, Check } from "lucide-react";
+import { Users, Copy, Check } from "lucide-react";
 import { Instructions } from "@/components/Instructions";
 import { Header } from "@/components/Header";
 import { Chat } from "@/components/Chat";
+import { StatusIndicator } from "@/components/StatusIndicator";
+import { ConnectionStatus } from "@/types/connectionStatus";
 
 export default function Home() {
   const [peer, setPeer] = useState<Peer>();
@@ -16,9 +18,8 @@ export default function Home() {
   const [friendPeerID, setFriendPeerID] = useState("");
   const [isJoined, setIsJoined] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState<
-    "disconnected" | "connecting" | "connected"
-  >("disconnected");
+  const [connectionStatus, setConnectionStatus] =
+    useState<ConnectionStatus>("disconnected");
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -123,30 +124,7 @@ export default function Home() {
           {/* Connection Panel */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl shadow-lg p-6 space-y-6">
-              {/* Status Indicator */}
-              <div className="flex items-center justify-center">
-                <div
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${
-                    connectionStatus === "connected"
-                      ? "bg-green-100 text-green-700"
-                      : connectionStatus === "connecting"
-                      ? "bg-yellow-100 text-yellow-700"
-                      : "bg-gray-100 text-gray-700"
-                  }`}
-                >
-                  {connectionStatus === "connected" ? (
-                    <Wifi className="w-4 h-4" />
-                  ) : (
-                    <WifiOff className="w-4 h-4" />
-                  )}
-                  {connectionStatus === "connected"
-                    ? "Connected"
-                    : connectionStatus === "connecting"
-                    ? "Connecting..."
-                    : "Disconnected"}
-                </div>
-              </div>
-
+              <StatusIndicator connectionStatus={connectionStatus} />
               {/* Join Section */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
