@@ -5,11 +5,9 @@ import { useRef, useState } from "react";
 import { Users, Copy, Check } from "lucide-react";
 import { Instructions } from "@/components/Instructions";
 import { Header } from "@/components/Header";
-import { ChatFooter } from "@/components/ChatFooter";
 import { StatusIndicator } from "@/components/StatusIndicator";
 import { ConnectionStatus } from "@/types/connectionStatus";
-import { ChatBody } from "@/components/ChatBody";
-import { ChatHeader } from "@/components/ChatHeader";
+import { Chat } from "@/components/Chat";
 
 export default function Home() {
   const [peer, setPeer] = useState<Peer>();
@@ -121,7 +119,6 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
       <div className="max-w-4xl mx-auto">
         <Header />
-
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Connection Panel */}
           <div className="lg:col-span-1">
@@ -204,22 +201,14 @@ export default function Home() {
               )}
             </div>
           </div>
-
-          {/* Chat Panel */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl shadow-lg h-[600px] flex flex-col">
-              <ChatHeader
-                isConnected={isConnected}
-                friendPeerID={friendPeerID}
-              />
-              <ChatBody messages={messages} messagesEndRef={messagesEndRef} />
-              <ChatFooter
-                connection={connection}
-                setMessages={setMessages}
-                isConnected={isConnected}
-              />
-            </div>
-          </div>
+          <Chat
+            isConnected={isConnected}
+            friendPeerID={friendPeerID}
+            messagesEndRef={messagesEndRef}
+            messages={messages}
+            connection={connection}
+            setMessages={setMessages}
+          />
         </div>
         <Instructions />
       </div>
