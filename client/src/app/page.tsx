@@ -4,7 +4,7 @@ import { DataConnection } from "peerjs";
 import { useRef, useState } from "react";
 import { Instructions } from "@/components/Instructions";
 import { Header } from "@/components/Header";
-import { Chat } from "@/components/Chat";
+import { Chat } from "@/components/chat/Chat";
 import { Connection } from "@/components/Connection";
 
 export default function Home() {
